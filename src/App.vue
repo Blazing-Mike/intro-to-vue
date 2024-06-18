@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import SignIn from '/src/components/Sign-in.vue'
 import SignUp from '/src/components/Sign-up.vue'
+import AgencyForm from './components/agencyForm.vue';
+
 
 const showSigninModal = ref(false)
 const showSignupModal = ref(false)
@@ -30,6 +32,8 @@ function showSignIn() {
       <SignIn :open="showSigninModal" @closeSignin="showSigninModal = false" />
       <SignUp :open="showSignupModal" @closeSignup="showSignupModal = false" />
     </Teleport>
+
+    <AgencyForm/>
   </main>
 </template>
 
