@@ -1,30 +1,23 @@
 <script setup>
 import { ref } from 'vue';
 
-const firstName = ref('');
-const lastName = ref('');
-const company = ref('');
-const workEmail = ref('');
-const companySize = ref('');
-const fundingStage = ref('');
-const message =  ref('');
-
-const applicantEmail =  'adebambomich683@gmail.com';
 const formEndpoint = 'https://eodh6njvzgfl22j.m.pipedream.net';
+
+const formData = ref({
+  firstName : '',
+  lastName: '',
+  company: '',
+  workEmail: '',
+  companySize: '',
+  fundingStage: '',
+  applicantEmail: 'adebambomich683@gmail.com',
+});
+
+// create a value called reset form and set all data to an empty object
+
 
 const handleSubmit = async (event) => {
   event.preventDefault(); // Prevent the default form submission
-
-  const formData = {
-    firstName: firstName.value,
-    lastName: lastName.value,
-    company: company.value,
-    workEmail: workEmail.value,
-    companySize: companySize.value,
-    fundingStage: fundingStage.value,
-    message: message.value,
-    applicantEmail: applicantEmail,
-  };
 
   try {
     const response = await fetch(formEndpoint, {
@@ -32,7 +25,7 @@ const handleSubmit = async (event) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(formData.value),
     });
 
     if (!response.ok) {
@@ -55,33 +48,33 @@ const handleSubmit = async (event) => {
     <form action="" @submit="handleSubmit">
 
       <div class="form-group">
-         <label for="firstName">First Name * : {{ firstName }}</label>
-          <input type="text"  name="firstName" v-model="firstName" required />
+         <label for="firstName">First Name * : {{ formData.firstName }}</label>
+          <input type="text"  name="firstName" v-model="formData.firstName" required />
       </div>
 
       <div class="form-group">
               <label for="lastName">Last Name *</label>
-              <input type="text" id="lastName" name="lastName" v-model="lastName" required>
+              <input type="text" id="lastName" name="lastName" v-model="formData.lastName" required>
           </div>
           <div class="form-group">
               <label for="company">Company *</label>
-              <input type="text" id="company" name="company" v-model="company" required>
+              <input type="text" id="company" name="company" v-model="formData.company" required>
           </div>
           <div class="form-group">
               <label for="workEmail">Work Email *</label>
-              <input type="email" id="workEmail" name="workEmail" v-model="workEmail" required>
+              <input type="email" id="workEmail" name="workEmail" v-model="formData.workEmail" required>
           </div>
           <div class="form-group">
-              <label for="companySize">Company Size * :{{  companySize }}</label>
-              <select id="companySize" name="companySize" v-model="companySize" required>
+              <label for="companySize">Company Size * :{{  formData.companySize }}</label>
+              <select id="companySize" name="companySize" v-model="formData.companySize" required>
                   <option :value=" '0-10'">0-10 employees</option>
                   <option :value="'11-50'">11-50 employees</option>
                   <option :value="'51-100'">51-100 employees</option>
               </select>
           </div>
           <div class="form-group">
-              <label for="fundingStage">Funding Stage : {{ fundingStage }}</label>
-              <select id="fundingStage" name="fundingStage" v-model="fundingStage">
+              <label for="fundingStage">Funding Stage : {{ formData.fundingStage }}</label>
+              <select id="fundingStage" name="fundingStage" v-model="formData.fundingStage">
                   <option value="">Select funding stage</option>
                   <option value="under ₦100k">Under ₦100k</option>
                   <option value="₦100k - ₦500k">₦100k - ₦500k</option>
@@ -89,8 +82,8 @@ const handleSubmit = async (event) => {
               </select>
           </div>
           <div class="form-group">
-              <label for="message">Any other Message : {{ message }}</label>
-              <textarea id="message" name="message" v-model="message"></textarea>
+              <label for="message">Any other Message : {{ formData.message }}</label>
+              <textarea id="message" name="message" v-model="formData.message"></textarea>
           </div>
           <button type="submit">Submit</button>
 
